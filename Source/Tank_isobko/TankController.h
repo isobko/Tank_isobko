@@ -8,26 +8,26 @@
 
 class ATankPawn;
 
-/**
- * 
- */
+
 UCLASS()
 class TANK_ISOBKO_API ATankController : public APlayerController
 {
 	GENERATED_BODY()
 
-
-protected:
-	UPROPERTY()
-		ATankPawn* TankPawn;
-
 public:
 	ATankController();
 	virtual void SetupInputComponent() override;
-
+	virtual void Tick(float DeltaSeconds) override;
+	FVector GetMousePosition() { return MousePosition; };
+	
 protected:
 	virtual void BeginPlay() override;
-	void MoveForward(float AxisValue);
-	void MoveRight(float AxisValue);
+	UPROPERTY()
+	ATankPawn* TankPawn;
+	UPROPERTY()
+	FVector MousePosition;
+	void MoveForward(float Value);
+	void RotateRight(float Value);
+	void Fire();
 	
 };

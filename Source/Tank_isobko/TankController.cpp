@@ -2,30 +2,52 @@
 
 
 #include "TankController.h"
+#include "DrawDebugHelpers.h"
 #include "TankPawn.h"
+
 
 ATankController::ATankController()
 {
+	bShowMouseCursor = true;
 }
 
 void ATankController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	InputComponent->BindAxis("MoveForward", this, &ATankController::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &ATankController::MoveRight);
+	InputComponent->BindAxis("RotateRight", this, &ATankController::RotateRight);
+	
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ATankController::Fire);
 }
 void ATankController::BeginPlay()
 {
 	Super::BeginPlay();
 	TankPawn = Cast<ATankPawn>(GetPawn());
 }
-void ATankController::MoveForward(float AxisValue)
+
+void ATankController::Tick(float DeltaSeconds)
 {
-	TankPawn->MoveForward(AxisValue);
-	
+	FVector MouseDirection;
+	DeprojectMousePositionToWorld(MousePosition, MouseDirection);
+	FVector PawnPosition = TankPawn->GetActorLocation();
+	MousePosition.Z = PawnPosition.Z;
+	FVector Dir = MousePosition - PawnPosition;
+	Dir.Normalize();
+	MousePosition = PawnPosition + Dir * 1000;
+	DrawDebugLine(GetWorld(), PawnPosition, MousePosition, FColor::Green, false, 0.1f, 0, 5);
 }
 
-void ATankController::MoveRight(float AxisValue)
+void ATankController::MoveForward(float Value)
 {
-	TankPawn->MoveRight(AxisValue);
+	TankPawn->MoveForward(Value);
+}
+
+void ATankController::RotateRight(float Value)
+{
+	TankPawn->RotateRight(Value);
+}
+
+void ATankController::Fire()
+{
+	TankPawn->Fire();
 }
