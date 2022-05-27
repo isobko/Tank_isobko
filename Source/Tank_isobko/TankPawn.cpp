@@ -16,29 +16,25 @@ ATankPawn::ATankPawn()
 
 	BodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tank body"));
 	RootComponent = BodyMesh;
-
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tank turret"));
 	TurretMesh->SetupAttachment(BodyMesh);
-	
+	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
+	CannonSetupPoint->AttachToComponent(TurretMesh, FAttachmentTransformRules::KeepRelativeTransform);
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring arm"));
 	SpringArm->SetupAttachment(BodyMesh);
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->bInheritPitch = false;
 	SpringArm->bInheritYaw = false;
 	SpringArm->bInheritRoll = false;
-
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
-	CannonSetupPoint->AttachToComponent(TurretMesh, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void ATankPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	TankController = Cast<ATankController>(GetController());
-
 	SetupCannon();
 }
 
@@ -51,7 +47,7 @@ void ATankPawn::Tick(float DeltaSeconds)
 	FVector ForwardVector = GetActorForwardVector();
 	FVector MovePosition = CurrentLocationTank + ForwardVector * MoveSpeed * TargetForwardAxisValue * DeltaSeconds;
 	SetActorLocation(MovePosition, true);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Position Pawn : %s"), *MovePosition.ToString()));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Position Pawn : %s"), *MovePosition.ToString()));
 	
 	// Tank rotation
 	CurrentRightAxisValue = FMath::Lerp(CurrentRightAxisValue, TargetRightAxisValue, RotateInterpolationKey);
@@ -66,7 +62,7 @@ void ATankPawn::Tick(float DeltaSeconds)
 	if (TankController)
 	{
 		FVector MousePosition = TankController->GetMousePosition();
-		UE_LOG(LogTemp, Warning, TEXT("Rotation: %s"), *MousePosition.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Rotation: %s"), *MousePosition.ToString());
 		RotateTurretTo(MousePosition);
 	}
 }
@@ -92,11 +88,19 @@ void ATankPawn::RotateRight(float Value)
 	TargetRightAxisValue = Value;
 }
 
-void ATankPawn::Fire()
+void ATankPawn::FireLeft()
 {
 	if(Cannon)
 	{
-		Cannon->Fire();
+		Cannon->FireLeft();
+	}
+}
+
+void ATankPawn::FireRight()
+{
+	if(Cannon)
+	{
+		Cannon->FireRight();
 	}
 }
 
@@ -112,5 +116,3 @@ void ATankPawn::SetupCannon()
 	Cannon = GetWorld()->SpawnActor<ACannon>(CannonClass, spawnParams);
 	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
-
-

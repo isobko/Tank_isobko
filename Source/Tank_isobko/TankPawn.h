@@ -26,7 +26,8 @@ public:
 	void Tick(float DeltaSeconds) override;
 	
 	UFUNCTION()
-	void Fire();
+	void FireLeft();
+	void FireRight();
 	void MoveForward(float Value);
 	void RotateRight(float Value);
 	void RotateTurretTo(FVector TargetPosition);
@@ -66,6 +67,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turret | Cannon")
 	TSubclassOf<ACannon> CannonClass;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Turret | Cannon")
-	ACannon* Cannon;
+	ACannon * Cannon;
+	
 	void SetupCannon();
 };

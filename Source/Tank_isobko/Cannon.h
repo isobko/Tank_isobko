@@ -13,32 +13,45 @@ UCLASS()
 class TANK_ISOBKO_API ACannon : public AActor
 {
 	GENERATED_BODY()
-	
+protected:
+	virtual  void BeginPlay() override;
+	void Reload();
+	// Модель пушки
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	class UStaticMeshComponent* CannonMesh;
+	// Точка из которой будет стрельба
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	class UArrowComponent* ProjectileSpawnPoint;
+	// Скорострельность
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Params")
+	float FireRate = 1.0f;
+	// Дальность стрельбы
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Params")
+	float FireRange = 1000.0f;
+	// Урон
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Params")
+	float FireDamage = 1.0f;
+	// Тип пушки
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Params")
+	ECannonType CannonType = ECannonType::FireProjectile;
+	// Количество снарядов
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Params")
+	int Ammo = 5;
+	// Структура, использующаяся для работы с таймерами.
+	FTimerHandle ReloadTimer;
+	// Готовность пушки к стрельбе
+	bool bReadyToFire = false;
+	// Включение безконечного боезопаса
+	bool bInfinityAmmo = false;
+
 public:	
 	ACannon();
-
-	void Fire();
+	//Fire
+	void FireLeft();
+	void FireRight();
+	void DebugLine(FColor Color);
 	bool IsReadyToFire();
-	void Reload();
-	void BeginPlay();
-
-	FTimerHandle ReloadTimer;	
-
-protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	class UStaticMeshComponent* CannonMesh;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	class UArrowComponent* ProjectileSpawnPoint;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Components")
-	float FireRate = 1.0f;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Components")
-	float FireRange = 1000.0f;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Components")
-	float FireDamage = 1.0f;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Fire | Components")
-	ECannonType CannonType = ECannonType::FireProjectile;
-
-	
-	bool bReadyToFire = true;
+	// Ammo
+	//void LogAmmoCount();
+	bool InfinityAmmo();
 };

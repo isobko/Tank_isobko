@@ -28,6 +28,6 @@ protected:
 	FVector MousePosition;
 	void MoveForward(float Value);
 	void RotateRight(float Value);
-	void Fire();
-	
+	void FireRight();
+	void FireLeft();
 };
