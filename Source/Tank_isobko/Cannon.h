@@ -52,6 +52,6 @@ public:
 	void DebugLine(FColor Color);
 	bool IsReadyToFire();
 	// Ammo
-	//void LogAmmoCount();
+	void LogAmmoCount();
 	bool InfinityAmmo();
 };

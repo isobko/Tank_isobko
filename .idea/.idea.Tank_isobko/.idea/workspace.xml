@@ -9,17 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7dac2142-9246-414b-9235-30cf1ff4188f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_PrjectileCannon.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank_isobko/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank_isobko/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_TankPawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_TankPawn.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/Level_01.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/Level_01.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/Cannon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/Cannon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/Cannon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/Cannon.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/TankController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/TankController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/TankPawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/TankPawn.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank_isobko/TankPawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank_isobko/TankPawn.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

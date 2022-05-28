@@ -6,7 +6,6 @@
 #include "Components/ArrowComponent.h"
 #include "TimerManager.h"
 #include "Engine/Engine.h"
-#include "Engine/RendererSettings.h"
 
 
 ACannon::ACannon()
@@ -39,12 +38,13 @@ void ACannon::FireLeft()
 	{
 		GEngine->AddOnScreenDebugMessage(10, 2, FColor::Green, "Fire - Projectile");
 		DebugLine(FColor::Green);
-		//LogAmmoCount();
+		LogAmmoCount();
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(10, 2, FColor::Red, "Fire - Trace");
 		DebugLine(FColor::Red);
+		LogAmmoCount();
 	}
 	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
 	
@@ -88,8 +88,9 @@ void ACannon::DebugLine(FColor Color)
 	DrawDebugLine(GetWorld(), StartVector, EndVector, Color, false, 0.2f, 0, 5);
 }
 
-//void ACannon::LogAmmoCount()
-//{
-//	GEngine->AddOnScreenDebugMessage(10, 2, FColor::Blue, "Fire - Special" + FString::FromInt(Ammo));
-//	//FString AmmoInfo = "Ammo : " + Ammo;
-//}
+void ACannon::LogAmmoCount()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("Осталось снарядов: %d"), Ammo));
+	//GEngine->AddOnScreenDebugMessage(10, 2, FColor::Blue, "Fire - Special" + FString::FromInt(Ammo));
+	//FString AmmoInfo = "Ammo : " + Ammo;
+}
